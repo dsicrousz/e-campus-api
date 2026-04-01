@@ -2,8 +2,6 @@
 uploads
 .env
 .vscode
-dockerfile
-Dockerfile
 test
 docker-compose.yml
 dist
