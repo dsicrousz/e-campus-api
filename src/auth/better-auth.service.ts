@@ -30,9 +30,7 @@ export class BetterAuthService {
 
   constructor(private readonly configService: ConfigService) {
     // URL du serveur Better Auth (par défaut sur le port 3100)
-    this.betterAuthUrl =
-      this.configService.get<string>('BETTER_AUTH_API') ||
-      'https://authapi.crousz.com';
+    this.betterAuthUrl ='https://authapi.crousz.com';
   }
 
   /**
