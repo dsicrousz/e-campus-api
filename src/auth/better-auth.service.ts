@@ -32,7 +32,7 @@ export class BetterAuthService {
     // URL du serveur Better Auth (par défaut sur le port 3100)
     this.betterAuthUrl =
       this.configService.get<string>('BETTER_AUTH_API') ||
-      'http://localhost:3100';
+      'https://authapi.crousz.com';
   }
 
   /**
