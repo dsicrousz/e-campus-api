@@ -48,7 +48,7 @@ export class BetterAuthService {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
-          Cookie: `better-auth.session_token=${sessionToken}`,
+          Cookie: `better-auth.session_token=${sessionToken}; __Secure-better-auth.session_token=${sessionToken}`,
         },
       });
 
@@ -99,7 +99,7 @@ export class BetterAuthService {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Cookie: `better-auth.session_token=${sessionToken}`,
+          Cookie: `better-auth.session_token=${sessionToken}; __Secure-better-auth.session_token=${sessionToken}`,
         },
       });
 

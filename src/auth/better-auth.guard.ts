@@ -62,7 +62,8 @@ export class BetterAuthGuard implements CanActivate {
         return acc;
       }, {} as Record<string, string>);
 
-      const sessionToken = cookies['better-auth.session_token'];
+      // Support both secure (HTTPS) and non-secure cookie names
+      const sessionToken = cookies['__Secure-better-auth.session_token'] || cookies['better-auth.session_token'];
       if (sessionToken) {
         return sessionToken;
       }
