@@ -67,11 +67,11 @@ export class BetterAuthService {
 
       const data = await response.json();
 
-      // Valider la structure de la réponse
-      if (!data.user || !data.session) {
+      // Valider la structure de la réponse (data peut être null si session invalide)
+      if (!data || !data.user || !data.session) {
         throw new HttpException(
-          'Réponse invalide du serveur d\'authentification',
-          HttpStatus.INTERNAL_SERVER_ERROR,
+          'Session invalide ou expirée',
+          HttpStatus.UNAUTHORIZED,
         );
       }
 
