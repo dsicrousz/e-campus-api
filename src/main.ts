@@ -21,21 +21,29 @@ async function bootstrap() {
   
   // CORS origins from environment variable, fallback to localhost
   const corsOrigins = config.get('CORS_ORIGINS')?.split(',') || ['http://localhost:3000', 'http://localhost:55864'];
+  logger.log(`CORS origins configured: ${JSON.stringify(corsOrigins)}`);
   
-  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-    setHeaders: (res,path,stat) => {
-      res.set('Access-Control-Allow-Origin', corsOrigins);
-    },
-    prefix: '/uploads/',
-  });
-  app.use(helmet());
-  app.use(json({limit:'10mb'}));
+  // CORS must be enabled before other middleware
   app.enableCors({
     origin: corsOrigins,
     allowedHeaders: ['authorization', 'content-type', 'cookie', 'x-session-token'],
     exposedHeaders: ['set-cookie'],
-    methods: 'GET,PUT,POST,DELETE,PATCH,UPDATE,OPTIONS',
+    methods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS',
     credentials: true,
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
+  
+  app.use(helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  }));
+  app.use(json({limit:'10mb'}));
+  
+  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
+    setHeaders: (res,path,stat) => {
+      res.set('Access-Control-Allow-Origin', corsOrigins[0]);
+    },
+    prefix: '/uploads/',
   });
   app.useGlobalPipes(
     new ValidationPipe({
