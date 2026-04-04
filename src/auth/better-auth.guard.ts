@@ -3,6 +3,7 @@ import {
   CanActivate,
   ExecutionContext,
   Injectable,
+  Logger,
   UnauthorizedException,
 } from '@nestjs/common';
 import { Request } from 'express';
@@ -14,18 +15,27 @@ import { BetterAuthService } from './better-auth.service';
  */
 @Injectable()
 export class BetterAuthGuard implements CanActivate {
+  private readonly logger = new Logger(BetterAuthGuard.name);
+
   constructor(private readonly betterAuthService: BetterAuthService) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     
+    // Debug: log headers reçus
+    this.logger.debug(`Cookie header: ${request.headers.cookie || 'NONE'}`);
+    this.logger.debug(`Authorization header: ${request.headers.authorization || 'NONE'}`);
+    this.logger.debug(`X-Session-Token header: ${request.headers['x-session-token'] || 'NONE'}`);
+    
     // Extraire le token de session depuis les cookies ou headers
     const sessionToken = this.extractSessionToken(request);
 
-
     if (!sessionToken) {
+      this.logger.warn('No session token found in request');
       throw new UnauthorizedException('Session token manquant');
     }
+    
+    this.logger.debug(`Session token found: ${sessionToken.substring(0, 10)}...`);
 
     try {
       // Vérifier la session auprès du serveur Better Auth
