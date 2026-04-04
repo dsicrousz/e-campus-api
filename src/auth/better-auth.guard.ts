@@ -83,7 +83,8 @@ export class BetterAuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
     if (authHeader) {
       const [scheme, token] = authHeader.split(' ');
-      if (scheme && /^Bearer$/i.test(scheme) && token) {
+      // Reject 'null', 'undefined', or empty tokens
+      if (scheme && /^Bearer$/i.test(scheme) && token && token !== 'null' && token !== 'undefined') {
         return token;
       }
     }
