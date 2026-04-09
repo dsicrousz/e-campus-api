@@ -50,7 +50,7 @@ export class WsBetterAuthGuard implements CanActivate {
         return acc;
       }, {} as Record<string, string>);
 
-      const sessionToken = cookies['better-auth.session_token'];
+      const sessionToken = cookies['better-auth.session_token'] || cookies['__Secure-better-auth.session_token'];
       if (sessionToken) return sessionToken;
     }
 

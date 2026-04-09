@@ -72,7 +72,7 @@ export class AnyAuthGuard implements CanActivate {
 
   private shouldPreferCompte(request: Request): boolean {
     const cookieHeader = request.headers.cookie || '';
-    const hasBetterAuthCookie = cookieHeader.includes('better-auth.session_token=');
+    const hasBetterAuthCookie = cookieHeader.includes('better-auth.session_token=') || cookieHeader.includes('__Secure-better-auth.session_token="');
     const hasCustomSessionHeader = !!request.headers['x-session-token'];
 
     if (hasBetterAuthCookie || hasCustomSessionHeader) return false;

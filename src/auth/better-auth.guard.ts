@@ -22,11 +22,6 @@ export class BetterAuthGuard implements CanActivate {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
     
-    // Debug: log headers reçus
-    this.logger.debug(`Cookie header: ${request.headers.cookie || 'NONE'}`);
-    this.logger.debug(`Authorization header: ${request.headers.authorization || 'NONE'}`);
-    this.logger.debug(`X-Session-Token header: ${request.headers['x-session-token'] || 'NONE'}`);
-    
     // Extraire le token de session depuis les cookies ou headers
     const sessionToken = this.extractSessionToken(request);
 
@@ -83,8 +78,7 @@ export class BetterAuthGuard implements CanActivate {
     const authHeader = request.headers.authorization;
     if (authHeader) {
       const [scheme, token] = authHeader.split(' ');
-      // Reject 'null', 'undefined', or empty tokens
-      if (scheme && /^Bearer$/i.test(scheme) && token && token !== 'null' && token !== 'undefined') {
+      if (scheme && /^Bearer$/i.test(scheme) && token) {
         return token;
       }
     }
