@@ -21,7 +21,7 @@ export class BetterAuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest<Request>();
-    
+
     // Extraire le token de session depuis les cookies ou headers
     const sessionToken = this.extractSessionToken(request);
 
@@ -69,6 +69,8 @@ export class BetterAuthGuard implements CanActivate {
 
       // Support both secure (HTTPS) and non-secure cookie names
       const sessionToken = cookies['__Secure-better-auth.session_token'] || cookies['better-auth.session_token'];
+      console.log('cookies', cookies);
+      console.log('sessionToken', sessionToken);
       if (sessionToken) {
         return sessionToken;
       }
