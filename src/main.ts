@@ -19,8 +19,13 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   const config = app.get(ConfigService);
   
-  // CORS origins from environment variable, fallback to localhost
-  const corsOrigins = config.get('CORS_ORIGINS')?.split(',') || ['http://localhost:3000', 'http://localhost:55864'];
+  // CORS origins from environment variable, fallback to localhost and production domains
+  const corsOrigins = config.get('CORS_ORIGINS')?.split(',') || [
+    'http://localhost:3000',
+    'http://localhost:55864',
+    'https://ecampus.crousz.com',
+    'https://authapi.crousz.com'
+  ];
   
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     setHeaders: (res,path,stat) => {
