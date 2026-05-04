@@ -28,9 +28,6 @@ async function bootstrap() {
   ];
   
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-    setHeaders: (res,path,stat) => {
-      res.set('Access-Control-Allow-Origin', corsOrigins);
-    },
     prefix: '/uploads/',
   });
   app.use(helmet());
