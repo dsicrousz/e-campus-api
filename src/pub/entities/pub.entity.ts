@@ -21,6 +21,9 @@ export class Pub {
 
     @Prop({type: String, required: true})
     image: string;
+
+    @Prop({type: Boolean, required: true, default: false})
+    isExpired: boolean;
 }
 
 export const PubSchema = SchemaFactory.createForClass(Pub);

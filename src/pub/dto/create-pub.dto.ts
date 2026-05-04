@@ -1,4 +1,4 @@
-import { IsOptional, IsString } from "class-validator";
+import { IsDateString, IsOptional, IsString } from "class-validator";
 
 export class CreatePubDto {
     @IsString()
@@ -7,10 +7,10 @@ export class CreatePubDto {
     @IsString()
     description: string;
 
-    @IsString()
+    @IsDateString()
     debut: string
 
-    @IsString()
+    @IsDateString()
     fin: string
 
     @IsOptional()

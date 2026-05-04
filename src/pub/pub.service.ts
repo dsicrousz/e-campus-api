@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { CreatePubDto } from './dto/create-pub.dto';
 import { UpdatePubDto } from './dto/update-pub.dto';
 import { Pub, PubDocument } from './entities/pub.entity';
+import { Cron } from '@nestjs/schedule';
 
 @Injectable()
 export class PubService {
@@ -52,14 +53,12 @@ export class PubService {
     }
   }
 
-  // @Cron('0 30 00 * * *')
-  // async handleCron() {
-  //  const expirbubs = await this.findAll();
-  //   const now = new Date();
-  //   expirbubs.forEach(async (pub) => {
-  //     if(isBefore(parseISO(pub.fin),now)){
-  //       await this.remove(pub._id);
-  //     }
-  //   });
-  // }
+  @Cron('0 30 00 * * *')
+  async handleCron() {
+    const now = new Date().toISOString();
+    await this.PubModel.updateMany(
+      { fin: { $lt: now }, isExpired: false },
+      { isExpired: true }
+    );
+  }
 }

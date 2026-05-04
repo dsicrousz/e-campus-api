@@ -16,7 +16,6 @@ export class PubController {
   create(@UploadedFile( new ParseFilePipe({
     validators: [
       new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB max
-      new FileTypeValidator({ fileType: 'jpeg|png|jpg' }),
     ]
   })) file: Express.Multer.File,@Body() createPubDto: CreatePubDto) {
     createPubDto.image = file.filename;
@@ -38,7 +37,6 @@ export class PubController {
   async update(@UploadedFile( new ParseFilePipe({
     validators: [
       new MaxFileSizeValidator({ maxSize: 5 * 1024 * 1024 }), // 5MB max
-      new FileTypeValidator({ fileType: 'jpeg|png|jpg' }),
     ]
   })) file: Express.Multer.File,@Param('id') id: string, @Body() updatePubDto: UpdatePubDto) {
     updatePubDto.image = file.filename;
