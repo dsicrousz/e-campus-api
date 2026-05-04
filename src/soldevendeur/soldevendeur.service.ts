@@ -60,7 +60,7 @@ export class SoldevendeurService {
         result = await this.soldevendeurModel.findOneAndUpdate(
           { vendeur_id },
           { solde: soldeApres },
-          { new: true }
+          { returnDocument: 'after' }
         );
       }
 
@@ -107,7 +107,7 @@ export class SoldevendeurService {
       const result = await this.soldevendeurModel.findOneAndUpdate(
         { vendeur_id },
         { solde: soldeApres },
-        { new: true }
+        { returnDocument: 'after' }
       );
 
       await this.historiqueSoldeService.create({

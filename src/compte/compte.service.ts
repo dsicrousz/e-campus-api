@@ -169,7 +169,7 @@ export class CompteService {
 
   async update(id: string, updateCompteDto: UpdateCompteDto):Promise<Compte> {
     try {
-      return await this.compteModel.findByIdAndUpdate(id, updateCompteDto,{new:true}).populate({path:'etudiant',model:this.etudiantModel});
+      return await this.compteModel.findByIdAndUpdate(id, updateCompteDto,{returnDocument:'after'}).populate({path:'etudiant',model:this.etudiantModel});
     } catch (error) {
       throw new HttpException(error.message, 500);
     }
@@ -202,7 +202,7 @@ export class CompteService {
       const compte = await this.compteModel.findOneAndUpdate(
         { _id: compteId },
         { $inc: { solde: Number(montant) } },
-        { new: true }
+        { returnDocument: 'after' }
       );
       if (!compte) {
         throw new BadRequestException('Compte introuvable');
@@ -227,7 +227,7 @@ export class CompteService {
           solde: { $gte: Number(montant) } 
         },
         { $inc: { solde: -Number(montant) } },
-        { new: true }
+        { returnDocument: 'after' }
       );
       
       if (!compte) {

@@ -26,11 +26,8 @@ export class BetterAuthGuard implements CanActivate {
     const sessionToken = this.extractSessionToken(request);
 
     if (!sessionToken) {
-      this.logger.warn('No session token found in request');
       throw new UnauthorizedException('Session token manquant');
     }
-    
-    this.logger.debug(`Session token found: ${sessionToken.substring(0, 10)}...`);
 
     try {
       // Vérifier la session auprès du serveur Better Auth
@@ -69,8 +66,6 @@ export class BetterAuthGuard implements CanActivate {
 
       // Support both secure (HTTPS) and non-secure cookie names
       const sessionToken = cookies['__Secure-better-auth.session_token'] || cookies['better-auth.session_token'];
-      console.log('cookies', cookies);
-      console.log('sessionToken', sessionToken);
       if (sessionToken) {
         return sessionToken;
       }

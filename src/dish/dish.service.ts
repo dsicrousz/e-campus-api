@@ -38,7 +38,7 @@ export class DishService {
 
   async update(id: string, updateDishDto: UpdateDishDto): Promise<Dish> {
     const updatedDish = await this.dishModel
-      .findByIdAndUpdate(id, updateDishDto, { new: true })
+      .findByIdAndUpdate(id, updateDishDto, { returnDocument: 'after' })
     if (!updatedDish) {
       throw new NotFoundException(`Dish with ID ${id} not found`);
     }

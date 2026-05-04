@@ -22,7 +22,7 @@ async function bootstrap() {
   // CORS origins from environment variable, fallback to localhost and production domains
   const corsOrigins = config.get('CORS_ORIGINS')?.split(',') || [
     'http://localhost:3000',
-    'http://localhost:55864',
+    'http://localhost:49848',
     'https://ecampus.crousz.com',
     'https://authapi.crousz.com'
   ];

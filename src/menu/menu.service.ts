@@ -44,7 +44,7 @@ export class MenuService {
   }
 
   async update(id: string, updateMenuDto: UpdateMenuDto): Promise<Menu> {
-  return await this.menuModel.findByIdAndUpdate(id, updateMenuDto, { new: true }); 
+  return await this.menuModel.findByIdAndUpdate(id, updateMenuDto, { returnDocument: 'after' }); 
   }
 
   async remove(id: string): Promise<void> {

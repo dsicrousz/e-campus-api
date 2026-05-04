@@ -46,7 +46,7 @@ export class TicketService {
 
   async update(id: string, updateDto: UpdateTicketDto): Promise<Ticket> {
     const ticket = await this.ticketModel
-      .findByIdAndUpdate(id, updateDto, { new: true })
+      .findByIdAndUpdate(id, updateDto, { returnDocument: 'after' })
       .exec();
     if (!ticket) {
       throw new NotFoundException(`Ticket ${id} non trouvé`);

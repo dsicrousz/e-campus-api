@@ -69,7 +69,7 @@ export class DecadeService {
 
   update(id: string, updateDecadeDto: UpdateDecadeDto) {
     try {
-      return this.decadeModel.findByIdAndUpdate(id, updateDecadeDto, { new: true });
+      return this.decadeModel.findByIdAndUpdate(id, updateDecadeDto, { returnDocument: 'after' });
     } catch (error) {
       throw new HttpException('Decade non mise à jour', HttpStatus.INTERNAL_SERVER_ERROR, { cause: error, description: 'Decade non mise à jour' });
     }

@@ -91,7 +91,7 @@ export class SessionService {
       const session = await this.sessionModel.findByIdAndUpdate(
         id,
         { isActive: true },
-        { new: true }
+        { returnDocument: 'after' }
       ).exec();
 
       if (!session) {
@@ -128,7 +128,7 @@ export class SessionService {
       const session = await this.sessionModel.findByIdAndUpdate(
         id,
         updateSessionDto,
-        { new: true }
+        { returnDocument: 'after' }
       ).exec();
 
       if (!session) {

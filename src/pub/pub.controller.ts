@@ -4,10 +4,10 @@ import { CreatePubDto } from './dto/create-pub.dto';
 import { UpdatePubDto } from './dto/update-pub.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { existsSync, unlinkSync } from 'fs';
-import { BetterAuthGuard } from 'src/auth/better-auth.guard';
+import { AnyAuthGuard } from 'src/auth/any-auth.guard';
 
 @Controller('pub')
-@UseGuards(BetterAuthGuard)
+@UseGuards(AnyAuthGuard)
 export class PubController {
   constructor(private readonly pubService: PubService) {}
 

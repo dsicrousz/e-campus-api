@@ -61,7 +61,7 @@ export class SoldecaissierService {
         result = await this.soldecaissierModel.findOneAndUpdate(
           { caissier_id },
           { solde: soldeApres },
-          { new: true }
+          { returnDocument: 'after' }
         );
       }
 
@@ -108,7 +108,7 @@ export class SoldecaissierService {
       const result = await this.soldecaissierModel.findOneAndUpdate(
         { caissier_id },
         { solde: soldeApres },
-        { new: true }
+        { returnDocument: 'after' }
       );
 
       await this.historiqueSoldeService.create({

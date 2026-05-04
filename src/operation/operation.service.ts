@@ -423,7 +423,7 @@ export class OperationService {
 
   async update(id: string, updateOperationDto: UpdateOperationDto): Promise<Operation> {
     try {
-      const operation = await this.operationModel.findByIdAndUpdate(id, updateOperationDto, { new: true }).exec();
+      const operation = await this.operationModel.findByIdAndUpdate(id, updateOperationDto, { returnDocument: 'after' }).exec();
       if (!operation) {
         throw new NotFoundException('Opération non trouvée');
       }

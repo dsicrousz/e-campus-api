@@ -8,7 +8,7 @@ import {
 
 export class UpdateEtudiantProfileDto {
   @IsOptional()
-  @IsPhoneNumber('SN')
+  @IsString()
   telSecondaire?: string;
 
   @IsOptional()
@@ -52,7 +52,7 @@ export class UpdateEtudiantProfileDto {
   contactUrgenceLien?: string;
 
   @IsOptional()
-  @IsPhoneNumber('SN')
+  @IsString()
   contactUrgenceTel?: string;
 
   @IsOptional()

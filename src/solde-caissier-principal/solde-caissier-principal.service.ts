@@ -67,7 +67,7 @@ export class SoldeCaissierPrincipalService {
         soldeCaissierPrincipal = await this.soldeCaissierPrincipalModel.findOneAndUpdate(
           { caissier_principal_id },
           { solde: soldeApres },
-          { new: true }
+          { returnDocument: 'after' }
         );
       }
 
@@ -115,7 +115,7 @@ export class SoldeCaissierPrincipalService {
       const updated = await this.soldeCaissierPrincipalModel.findOneAndUpdate(
         { caissier_principal_id },
         { solde: soldeApres },
-        { new: true }
+        { returnDocument: 'after' }
       );
 
       await this.historiqueSoldeService.create({

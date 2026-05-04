@@ -67,7 +67,7 @@ export class SoldeRecouvreurService {
         soldeRecouvreur = await this.soldeRecouvreurModel.findOneAndUpdate(
           { recouvreur_id },
           { solde: soldeApres },
-          { new: true }
+          { returnDocument: 'after' }
         );
       }
 
@@ -115,7 +115,7 @@ export class SoldeRecouvreurService {
       const updated = await this.soldeRecouvreurModel.findOneAndUpdate(
         { recouvreur_id },
         { solde: soldeApres },
-        { new: true }
+        { returnDocument: 'after' }
       );
 
       await this.historiqueSoldeService.create({

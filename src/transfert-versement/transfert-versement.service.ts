@@ -140,7 +140,7 @@ export class TransfertVersementService {
           date_validation: new Date(),
           validateur_id
         },
-        { new: true }
+        { returnDocument: 'after' }
       );
     } catch (error) {
       throw new HttpException(error.message, error.statusCode || 500);
@@ -240,7 +240,7 @@ export class TransfertVersementService {
           date_validation: new Date(),
           validateur_id
         },
-        { new: true }
+        { returnDocument: 'after' }
       );
     } catch (error) {
       throw new HttpException(error.message, error.statusCode || 500);
