@@ -46,6 +46,7 @@
     "mongoose": "^9.2.4",
     "mongoose-autopopulate": "^1.2.1",
     "nanoid": "^5.1.6",
+    "nestjs-minio": "^2.8.0",
     "passport": "^0.7.0",
     "passport-jwt": "^4.0.1",
     "passport-local": "^1.0.0",

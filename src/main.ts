@@ -6,11 +6,8 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { json } from 'express';
 import helmet from 'helmet';
-import { join } from 'path';
 import { AppModule } from './app.module';
 import { HttpExceptionFilter } from './http-exection-filter';
-
-declare const __dirname: string;
 
 const logger = new Logger('Main');
 
@@ -27,9 +24,6 @@ async function bootstrap() {
     'https://authapi.crousz.com'
   ];
   
-  app.useStaticAssets(join(__dirname, '..', 'uploads'), {
-    prefix: '/uploads/',
-  });
   app.use(helmet());
   app.use(json({limit:'10mb'}));
   app.enableCors({

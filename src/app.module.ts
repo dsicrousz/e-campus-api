@@ -32,6 +32,7 @@ import { HistoriqueSoldeModule } from './historique-solde/historique-solde.modul
 import { SoldeRecouvreurModule } from './solde-recouvreur/solde-recouvreur.module';
 import { SoldeCaissierPrincipalModule } from './solde-caissier-principal/solde-caissier-principal.module';
 import { TransfertVersementModule } from './transfert-versement/transfert-versement.module';
+import { MinioModule } from './minio/minio.module';
 
 @Module({
   imports: [
@@ -91,7 +92,8 @@ import { TransfertVersementModule } from './transfert-versement/transfert-versem
     HistoriqueSoldeModule,
     SoldeRecouvreurModule,
     SoldeCaissierPrincipalModule,
-    TransfertVersementModule
+    TransfertVersementModule,
+    MinioModule
   ],
   controllers: [AppController],
   providers: [AppService,EventsGateway,{

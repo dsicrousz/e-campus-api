@@ -5,6 +5,8 @@ import { DishController } from './dish.controller';
 import { DishService } from './dish.service';
 import { MulterModule } from '@nestjs/platform-express';
 import { AuthModule } from 'src/auth/auth.module';
+import { MinioModule } from '../minio/minio.module';
+import { memoryStorage } from 'multer';
 
 @Module({
   imports: [
@@ -13,8 +15,11 @@ import { AuthModule } from 'src/auth/auth.module';
       schema.plugin(require('mongoose-autopopulate'));
       return schema;
     } }], 'ecampus'),
-  MulterModule.register(),
+  MulterModule.register({
+    storage: memoryStorage(),
+  }),
   AuthModule,
+  MinioModule,
   ],
   controllers: [DishController],
   providers: [DishService],

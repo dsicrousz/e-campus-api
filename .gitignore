@@ -3,6 +3,5 @@ uploads
 .env
 .vscode
 test
-docker-compose.yml
 dist
 .sentryclirc
