@@ -62,6 +62,9 @@ COPY --from=build /usr/src/app/dist ./dist
 # Create upload directories
 RUN mkdir -p uploads/pubs uploads/avatars uploads/plats
 
+# Declare volume for uploads to persist data
+VOLUME ["/usr/src/app/uploads"]
+
 # Expose the port that the application listens on.
 EXPOSE 3001
 
