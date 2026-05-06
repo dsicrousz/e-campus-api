@@ -4,18 +4,30 @@ import { PubController } from './pub.controller';
 import { MulterModule } from '@nestjs/platform-express';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Pub, PubSchema } from './entities/pub.entity';
+import { diskStorage } from 'multer';
 import { AuthModule } from 'src/auth/auth.module';
-import { MinioModule } from '../minio/minio.module';
-import { memoryStorage } from 'multer';
+
+
+const storage = diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, './uploads/pubs');
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1e9);
+    cb(
+      null,
+      file.fieldname + '-' + uniqueSuffix + '-' + file.originalname,
+    );
+  },
+});
 
 @Module({
   imports: [
     MongooseModule.forFeature([{name: Pub.name, schema: PubSchema}],'ecampus'),
     MulterModule.register({
-      storage: memoryStorage(),
+      storage
     }),
-    AuthModule,
-    MinioModule
+    AuthModule
   ],
   controllers: [PubController],
   providers: [PubService]
