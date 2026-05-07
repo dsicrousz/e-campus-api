@@ -18,7 +18,6 @@ import { DishService } from './dish.service';
 import { CreateDishDto } from './dto/create-dish.dto';
 import { UpdateDishDto } from './dto/update-dish.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
 import { BetterAuthGuard } from 'src/auth/better-auth.guard';
 
 @Controller('dishes')
@@ -53,24 +52,14 @@ export class DishController {
   }
 
   @Patch('updateimage/:id')
-  @UseInterceptors(FileInterceptor('file',{
-    storage: diskStorage({
-      destination: (req, file, cb) => {
-        cb(null, "uploads/plats");
-      },
-      filename: (req, file, cb) => {
-        const ext = file.originalname.split('.').pop();
-        cb(null, `${req.params.id}.${ext}`);
-      },
-    }),
-  }))
+  @UseInterceptors(FileInterceptor('file'))
   updateImage(@Param('id') id: string, @UploadedFile(new ParseFilePipe({
     validators: [
       new MaxFileSizeValidator({ maxSize: 1000000 }),
       new FileTypeValidator({ fileType: /^(image\/jpeg|image\/png|image\/webp)$/i }),
     ],
   }),) file: Express.Multer.File) {
-   return this.dishService.update(id,{image:file.filename});
+   return this.dishService.update(id,{image:file.path});
   }
 
   @Delete(':id')
