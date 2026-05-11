@@ -7,7 +7,6 @@ import { UpdateCompteDto } from './dto/update-compte.dto';
 import { JwtService } from '@nestjs/jwt';
 import { AnyAuthGuard } from 'src/auth/any-auth.guard';
 import { Public } from 'src/auth/public.decorator';
-// import { CompteAuthGuard } from 'src/auth/compte-auth.guard';
 
 @Controller('compte')
 @UseGuards(AnyAuthGuard)

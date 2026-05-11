@@ -24,7 +24,8 @@ async function bootstrap() {
     'https://ecampus.crousz.com',
     'https://authapi.crousz.com'
   ];
-  
+
+  console.log(corsOrigins)
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads/',
   });
