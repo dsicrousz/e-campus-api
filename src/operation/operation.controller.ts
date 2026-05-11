@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Query } f
 import { OperationService } from './operation.service';
 import { CreateOperationDto } from './dto/create-operation.dto';
 import { UpdateOperationDto } from './dto/update-operation.dto';
+import { VirementDto } from './dto/virement.dto';
 
 import { TypeOperation } from './entities/operation.entity';
 import { AnyAuthGuard } from 'src/auth/any-auth.guard';
@@ -14,6 +15,11 @@ export class OperationController {
   @Post()
   create(@Body() createOperationDto: CreateOperationDto) {
     return this.operationService.create(createOperationDto);
+  }
+
+  @Post('virement')
+  virement(@Body() virementDto: VirementDto) {
+    return this.operationService.virement(virementDto.id_from, virementDto.id_to, virementDto.montant);
   }
 
   @Get()

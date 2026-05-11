@@ -459,4 +459,25 @@ export class OperationService {
       throw new HttpException(error.message, 500);
     }
   }
+
+  /**
+   * Effectue un virement entre deux comptes
+   * @param idFrom ID du compte source
+   * @param idTo ID du compte destinataire
+   * @param montant Montant à transférer
+   */
+  async virement(idFrom: string, idTo: string, montant: number): Promise<Operation> {
+    // Récupérer la session active
+    const sessionActive = await this.sessionService.getActiveSession();
+
+    const dto: CreateOperationDto = {
+      type: TypeOperation.TRANSFERT,
+      compte: idFrom,
+      compteDestinataire: idTo,
+      montant,
+      session: sessionActive._id,
+    };
+
+    return await this.traiterTransfert(dto);
+  }
 }
