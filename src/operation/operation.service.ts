@@ -34,7 +34,11 @@ export class OperationService {
     try {
       // Récupérer la session active
       const sessionActive = await this.sessionService.getActiveSession();
-      
+
+      if (!sessionActive) {
+        throw new BadRequestException('Aucune session active trouvée. Veuillez créer une session avant d\'effectuer des opérations.');
+      }
+
       // Ajouter la session au DTO
       createOperationDto.session = sessionActive._id;
 
@@ -469,6 +473,10 @@ export class OperationService {
   async virement(idFrom: string, idTo: string, montant: number): Promise<Operation> {
     // Récupérer la session active
     const sessionActive = await this.sessionService.getActiveSession();
+
+    if (!sessionActive) {
+      throw new BadRequestException('Aucune session active trouvée. Veuillez créer une session avant d\'effectuer des opérations.');
+    }
 
     const dto: CreateOperationDto = {
       type: TypeOperation.TRANSFERT,
