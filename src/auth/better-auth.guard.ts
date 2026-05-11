@@ -24,8 +24,6 @@ export class BetterAuthGuard implements CanActivate {
 
     // Extraire le token de session depuis les cookies ou headers
     const sessionToken = this.extractSessionToken(request);
-    console.log(sessionToken);
-
     if (!sessionToken) {
       throw new UnauthorizedException('Session token manquant');
     }
